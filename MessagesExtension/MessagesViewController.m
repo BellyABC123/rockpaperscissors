@@ -20,9 +20,36 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)didClickRock:(id)sender {
+
+    [self sendMessageWithChoice:@"Rock"];
+}
+
+- (IBAction)didClickPaper:(id)sender {
+
+    [self sendMessageWithChoice:@"Paper"];
+}
+
+- (IBAction)didClickScissors:(id)sender {
+
+    [self sendMessageWithChoice:@"Scissors"];
+
+}
+
+- (void)sendMessageWithChoice:(NSString *)choice {
+    
+    MSMessageTemplateLayout *layout = [[MSMessageTemplateLayout alloc] init];
+    layout.caption = choice;
+    
+    MSMessage *message = [[MSMessage alloc] init];
+    message.layout = layout;
+    
+    [self.activeConversation insertMessage:message completionHandler:^(NSError *error) {
+        
+        if (error) {
+            NSLog(@"ERROR");
+        }
+    }];
 }
 
 #pragma mark - Conversation Handling
